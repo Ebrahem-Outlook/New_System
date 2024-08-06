@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using New_System.Application.Core.Data;
 using New_System.Domain.Users;
+using New_System.Infrastructure.Caching;
 using New_System.Infrastructure.Database;
 using New_System.Infrastructure.Repositories;
 
@@ -25,7 +27,22 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<AppDbContext>());
 
 
-        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<UserRepository>();
+
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = configuration.GetConnectionString("Redis");
+        });
+
+        services.AddScoped<IUserRepository>(serviceProvider =>
+        {
+            var decorated = serviceProvider.GetRequiredService<UserRepository>();
+
+            var cache = serviceProvider.GetRequiredService<IDistributedCache>();
+
+            return new CachedUserRepository(decorated, cache);
+        });
+        
 
 
         return services;
