@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  new_system.api:
+    image: ${DOCKER_REGISTRY-}newsystemapi
+    build:
+      context: .
+      dockerfile: New_System.API/Dockerfile
