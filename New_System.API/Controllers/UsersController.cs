@@ -16,6 +16,6 @@ public sealed class UsersController(ISender sender) : ControllerBase
                 request.FirstName,
                 request.LastName,
                 request.Email,
-                request.Password));
+                request.Password)));
 
 }

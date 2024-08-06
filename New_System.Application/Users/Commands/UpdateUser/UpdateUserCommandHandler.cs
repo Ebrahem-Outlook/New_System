@@ -1,10 +1,11 @@
-﻿using New_System.Application.Core.Data;
+﻿using MediatR;
+using New_System.Application.Core.Data;
 using New_System.Application.Core.Messaging;
 using New_System.Domain.Users;
 
 namespace New_System.Application.Users.Commands.UpdateUser;
 
-internal sealed class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand>
+internal sealed class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Unit>
 {
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -15,13 +16,13 @@ internal sealed class UpdateUserCommandHandler : ICommandHandler<UpdateUserComma
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         User? user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
 
         if (user is null)
         {
-            return;
+            return Unit.Value;
         }
 
         user.UpdateUser(request.FirstName, request.LastName);
@@ -29,5 +30,7 @@ internal sealed class UpdateUserCommandHandler : ICommandHandler<UpdateUserComma
         await _userRepository.UpdateAsync(user, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Unit.Value;
     }
 }

@@ -1,10 +1,11 @@
-﻿using New_System.Application.Core.Data;
+﻿using MediatR;
+using New_System.Application.Core.Data;
 using New_System.Application.Core.Messaging;
 using New_System.Domain.Users;
 
 namespace New_System.Application.Users.Commands.UpdatePassword;
 
-internal sealed class UpdatePasswordCommandHandler : ICommandHandler<UpdatePasswordCommand>
+internal sealed class UpdatePasswordCommandHandler : ICommandHandler<UpdatePasswordCommand, Unit>
 {
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -15,13 +16,13 @@ internal sealed class UpdatePasswordCommandHandler : ICommandHandler<UpdatePassw
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
     {
         User? user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
 
         if (user is null || user.Email != request.Email)
         {
-            return;
+            return Unit.Value;
         }
 
         user.UpdatePassword(request.Password);
@@ -29,5 +30,7 @@ internal sealed class UpdatePasswordCommandHandler : ICommandHandler<UpdatePassw
         await _userRepository.UpdateAsync(user, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Unit.Value;
     }
 }
