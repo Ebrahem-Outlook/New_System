@@ -17,7 +17,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Users\Events\" />
+    <Folder Include="Products\Events\ProductDeleted\" />
+    <Folder Include="Products\Events\ProductUpdated\" />
+    <Folder Include="Products\Events\ProductCreated\" />
+    <Folder Include="Users\Events\EmailUpdated\" />
+    <Folder Include="Users\Events\PasswordUpdated\" />
+    <Folder Include="Users\Events\UserDeleted\" />
+    <Folder Include="Users\Events\UserUpdated\" />
+    <Folder Include="Users\Events\UserCreated\" />
   </ItemGroup>
 
 </Project>

@@ -12,14 +12,14 @@ public sealed class Product : AggregateRoot
     /// 
     /// </summary>
     /// <param name="name"></param>
-    /// <param name="price"></param>
     /// <param name="description"></param>
-    private Product(string name, decimal price, string description)
+    /// <param name="price"></param>
+    private Product(string name, string description, decimal price)
         : base(Guid.NewGuid())
     {
         Name = name;
-        Price = price;
         Description = description;
+        Price = price;
         CreatedAt = DateTime.UtcNow;
     }
 
@@ -36,12 +36,13 @@ public sealed class Product : AggregateRoot
     /// <summary>
     /// 
     /// </summary>
-    public decimal Price { get; private set; } = default!;
+    public string Description { get; private set; } = default!;
+
 
     /// <summary>
     /// 
     /// </summary>
-    public string Description { get; private set; } = default!;
+    public decimal Price { get; private set; } = default!;
 
     /// <summary>
     /// 
@@ -63,7 +64,7 @@ public sealed class Product : AggregateRoot
     /// <returns></returns>
     public static Product Create(string name, decimal price, string description)
     {
-        Product product = new(name, price, description);
+        Product product = new(name, description, price);
 
         product.RaiseDomainEvent(new ProductCreatedDomainEvent(product));
 
@@ -77,11 +78,11 @@ public sealed class Product : AggregateRoot
     /// <param name="price"></param>
     /// <param name="description"></param>
     /// <param name="items"></param>
-    public void Update(string name, decimal price, string description)
+    public void Update(string name, string description, decimal price)
     {
         Name = name;
-        Price = price;
         Description = description;
+        Price = price;
 
         RaiseDomainEvent(new ProductUpdatedDomainEvent(this));
     }
