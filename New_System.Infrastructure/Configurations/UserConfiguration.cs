@@ -13,19 +13,19 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(user => user.Id);
 
         builder.Property(user => user.FirstName)
-            .HasColumnType("varChar(50)")
+            .HasMaxLength(50)
             .IsRequired();
 
         builder.Property(user => user.LastName)
-            .HasColumnType("varChar(50)")
+            .HasMaxLength(50)
             .IsRequired();
 
         builder.Property(user => user.Email)
-            .HasColumnType("varChar(50)")
+            .HasMaxLength(50)
             .IsRequired();
 
         builder.Property(user => user.Password)
-            .HasColumnType("varChar(50)")
+            .HasMaxLength(50)
             .IsRequired();
     }
 }

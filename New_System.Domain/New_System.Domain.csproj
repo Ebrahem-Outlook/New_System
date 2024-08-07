@@ -13,8 +13,8 @@
   <ItemGroup>
     <Folder Include="Messages\" />
     <Folder Include="Orders\" />
-    <Folder Include="Products\" />
     <Folder Include="Posts\" />
+    <Folder Include="Products\ValueObjects\" />
   </ItemGroup>
 
 </Project>
