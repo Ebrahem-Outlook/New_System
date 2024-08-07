@@ -1,12 +1,13 @@
 ﻿using New_System.Domain.Core.BaseType;
 using New_System.Domain.Users.Events;
+using New_System.Domain.Users.ValueObjects;
 
 namespace New_System.Domain.Users;
 
-public sealed class User : AggregateRoot
+public sealed class User : AggregateRoot<UserId>
 {
-    private User(string firstName, string lastName, string email, string password)
-        : base(Guid.NewGuid())
+    private User(FirstName firstName, LastName lastName, Email email, Password password)
+        : base(UserId.Create())
     {
         FirstName = firstName;
         LastName = lastName;
@@ -16,12 +17,12 @@ public sealed class User : AggregateRoot
 
     private User() : base() { }
 
-    public string FirstName { get; private set; } = default!;
-    public string LastName { get; private set; } = default!;
-    public string Email { get; private set; } = default!;
-    public string Password { get; private set; } = default!;
+    public FirstName FirstName { get; private set; } = default!;
+    public LastName LastName { get; private set; } = default!;
+    public Email Email { get; private set; } = default!;
+    public Password Password { get; private set; } = default!;
 
-    public static User Create(string firstName, string lastName, string email, string password)
+    public static User Create(FirstName firstName, LastName lastName, Email email, Password password)
     {
         User user = new(firstName, lastName, email, password);
 
@@ -30,7 +31,7 @@ public sealed class User : AggregateRoot
         return user;
     }
 
-    public void UpdateUser(string firstName, string lastName)
+    public void UpdateUser(FirstName firstName, LastName lastName)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -38,14 +39,14 @@ public sealed class User : AggregateRoot
         RaiseDomainEvent(new UserUpdatedDomainEvent(this));
     }
 
-    public void UpdateEmail(string email)
+    public void UpdateEmail(Email email)
     {
         Email = email;
 
         RaiseDomainEvent(new EmailUpdatedDomainEvent(this));
     }
 
-    public void UpdatePassword(string password)
+    public void UpdatePassword(Password password)
     {
         Password = password;
 

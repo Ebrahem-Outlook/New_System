@@ -1,12 +1,13 @@
 ﻿using New_System.Domain.Core.BaseType;
 using New_System.Domain.Products.Events;
+using New_System.Domain.Products.ValueObjects;
 
 namespace New_System.Domain.Products;
 
 /// <summary>
 /// 
 /// </summary>
-public sealed class Product : AggregateRoot
+public sealed class Product : AggregateRoot<ProductId>
 {
     /// <summary>
     /// 
@@ -15,7 +16,7 @@ public sealed class Product : AggregateRoot
     /// <param name="description"></param>
     /// <param name="price"></param>
     private Product(string name, string description, decimal price)
-        : base(Guid.NewGuid())
+        : base(ProductId.Create())
     {
         Name = name;
         Description = description;

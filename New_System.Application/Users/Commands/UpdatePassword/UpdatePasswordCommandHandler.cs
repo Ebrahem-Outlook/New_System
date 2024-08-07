@@ -2,6 +2,7 @@
 using New_System.Application.Core.Data;
 using New_System.Application.Core.Messaging;
 using New_System.Domain.Users;
+using New_System.Domain.Users.ValueObjects;
 
 namespace New_System.Application.Users.Commands.UpdatePassword;
 
@@ -18,14 +19,18 @@ internal sealed class UpdatePasswordCommandHandler : ICommandHandler<UpdatePassw
 
     public async Task<Unit> Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
     {
+
+
         User? user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
 
-        if (user is null || user.Email != request.Email)
+        if (user is null || user.Email.Value != request.Email)
         {
             return Unit.Value;
         }
 
-        user.UpdatePassword(request.Password);
+        Password password = Password.Create(request.Password);
+
+        user.UpdatePassword(password);
 
         await _userRepository.UpdateAsync(user, cancellationToken);
 

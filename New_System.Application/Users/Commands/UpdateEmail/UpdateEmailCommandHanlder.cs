@@ -2,6 +2,7 @@
 using New_System.Application.Core.Data;
 using New_System.Application.Core.Messaging;
 using New_System.Domain.Users;
+using New_System.Domain.Users.ValueObjects;
 
 namespace New_System.Application.Users.Commands.UpdateEmail;
 
@@ -25,7 +26,9 @@ internal sealed class UpdateEmailCommandHanlder : ICommandHandler<UpdateEmailCom
             return Unit.Value;
         }
 
-        user.UpdateEmail(request.Email);
+        Email email = Email.Create(request.Email);
+
+        user.UpdateEmail(email);
 
         await _userRepository.UpdateAsync(user, cancellationToken);
 

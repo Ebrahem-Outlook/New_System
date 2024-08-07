@@ -32,7 +32,7 @@ internal sealed class UserRepository(IDbContext dbContext) : IUserRepository
 
     public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken)
     {
-        return await dbContext.Set<User>().FirstOrDefaultAsync(user => user.Email == email, cancellationToken);
+        return await dbContext.Set<User>().FirstOrDefaultAsync(user => user.Email.Value == email, cancellationToken);
     }
 
     public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
@@ -42,6 +42,6 @@ internal sealed class UserRepository(IDbContext dbContext) : IUserRepository
 
     public async Task<List<User>> GetByNameAsync(string name, CancellationToken cancellationToken)
     {
-        return await dbContext.Set<User>().Where(user => user.FirstName == name).ToListAsync(cancellationToken);
+        return await dbContext.Set<User>().Where(user => user.FirstName.Value == name).ToListAsync(cancellationToken);
     }
 }

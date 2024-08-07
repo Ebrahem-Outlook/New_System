@@ -2,6 +2,8 @@
 using New_System.Application.Core.Data;
 using New_System.Application.Core.Messaging;
 using New_System.Domain.Users;
+using New_System.Domain.Users.ValueObjects;
+using System.Runtime.Serialization;
 
 namespace New_System.Application.Users.Commands.CreateUser;
 
@@ -18,7 +20,12 @@ internal sealed class CreateUserCommandHandler : ICommandHandler<CreateUserComma
 
     public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        User user = User.Create(request.FirstName, request.LastName, request.Email, request.Password);
+        FirstName firstName = FirstName.Create(request.FirstName); 
+        LastName lastName = LastName.Create(request.LastName); 
+        Email email= Email.Create(request.Email); 
+        Password password = Password.Create(request.Password);
+
+        User user = User.Create(firstName, lastName, email, password);
 
         await _userRepository.AddAsync(user, cancellationToken);
 

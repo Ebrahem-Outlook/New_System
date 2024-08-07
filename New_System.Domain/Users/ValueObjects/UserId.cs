@@ -2,18 +2,18 @@
 
 namespace New_System.Domain.Users.ValueObjects;
 
-public sealed class FirstName : ValueObject
+public sealed class UserId : ValueObject
 {
-    private FirstName(string value)
+    private UserId(Guid value)
     {
         Value = value;
     }
 
-    public string Value { get; }
+    public Guid Value { get; }
 
-    public static FirstName Create(string firstName)
+    public static UserId Create()
     {
-        return new FirstName(firstName);
+        return new UserId(Guid.NewGuid());
     }
 
     protected override IEnumerable<object> GetEqualityComponents()

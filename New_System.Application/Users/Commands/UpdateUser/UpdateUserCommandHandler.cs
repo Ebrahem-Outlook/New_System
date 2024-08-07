@@ -2,6 +2,7 @@
 using New_System.Application.Core.Data;
 using New_System.Application.Core.Messaging;
 using New_System.Domain.Users;
+using New_System.Domain.Users.ValueObjects;
 
 namespace New_System.Application.Users.Commands.UpdateUser;
 
@@ -25,7 +26,10 @@ internal sealed class UpdateUserCommandHandler : ICommandHandler<UpdateUserComma
             return Unit.Value;
         }
 
-        user.UpdateUser(request.FirstName, request.LastName);
+        FirstName firstName = FirstName.Create(request.FirstName);
+        LastName lastName = LastName.Create(request.LastName);
+
+        user.UpdateUser(firstName, lastName);
 
         await _userRepository.UpdateAsync(user, cancellationToken);
 
