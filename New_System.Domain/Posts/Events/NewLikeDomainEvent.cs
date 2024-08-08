@@ -1,5 +1,5 @@
 ﻿using New_System.Domain.Core.Events;
-using New_System.Domain.Posts.ValueObjects;
+using New_System.Domain.Posts.Entity;
 
 namespace New_System.Domain.Posts.Events;
 

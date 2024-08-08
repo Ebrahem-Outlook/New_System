@@ -3,4 +3,4 @@ using New_System.Domain.Posts.Entity;
 
 namespace New_System.Domain.Posts.Events;
 
-public sealed record NewCommentDomainEvent(Comment Comment) : DomainEvent();
+public sealed record NewShareDomainEvent(Share Share) : DomainEvent();

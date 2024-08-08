@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Messages\" />
-    <Folder Include="Orders\" />
+    <Folder Include="Messages\Events\" />
+    <Folder Include="Messages\Entity\" />
+    <Folder Include="Orders\Entity\" />
+    <Folder Include="Products\Entity\" />
+    <Folder Include="Users\Entity\" />
   </ItemGroup>
 
 </Project>

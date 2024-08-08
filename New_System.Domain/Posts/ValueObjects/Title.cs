@@ -2,15 +2,15 @@
 
 namespace New_System.Domain.Posts.ValueObjects;
 
-public sealed class PostId : ValueObject
+public sealed class Title : ValueObject
 {
-    private PostId(Guid value) => Value = value;
+    public Title(string value) => Value = value;
 
-    public Guid Value { get; }
+    public string Value { get; }
 
-    public static PostId Create()
+    public static Title Create(string title)
     {
-        return new PostId(Guid.NewGuid());
+        return new Title(title);
     }
 
     protected override IEnumerable<object> GetEqualityComponents()
