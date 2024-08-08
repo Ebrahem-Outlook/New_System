@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace New_System.Application.Core.Abstractions.Emails;
 
-namespace New_System.Application.Core.Abstractions.Emails
+public interface IEmailService
 {
-    internal class IEmailService
-    {
-    }
+    Task SendEmailAsync(string to, string subject, string body);
 }

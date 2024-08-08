@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +9,7 @@ using New_System.Domain.Products;
 using New_System.Domain.Users;
 using New_System.Infrastructure.Caching;
 using New_System.Infrastructure.Database;
+using New_System.Infrastructure.Emails.Settings;
 using New_System.Infrastructure.Repositories;
 
 namespace New_System.Infrastructure;
@@ -62,6 +65,10 @@ public static class DependencyInjection
             return new CachedProductRepository(cache, decorated);
         });
 
+
+        services.Configure<EmailSettings>(configuration.GetSection("df"));
+
+        
         return services;
     }
 }

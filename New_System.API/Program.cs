@@ -14,6 +14,9 @@ public class Program
         builder.Services.AddApplicationLayer();
         builder.Services.AddInfrastructureLayer(builder.Configuration);
 
+        builder.Configuration.GetSection("sfd");
+
+        builder.Services.Configure()
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();

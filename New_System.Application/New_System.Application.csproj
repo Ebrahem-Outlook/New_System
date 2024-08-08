@@ -17,6 +17,34 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Messages\Commands\CreateMessage\" />
+    <Folder Include="Messages\Commands\DeleteMessage\" />
+    <Folder Include="Messages\Commands\UpdateMessage\" />
+    <Folder Include="Messages\Events\MessageCreated\" />
+    <Folder Include="Messages\Events\MessageUpdated\" />
+    <Folder Include="Messages\Events\MessageDeleted\" />
+    <Folder Include="Messages\Queries\GetAll\" />
+    <Folder Include="Messages\Queries\GetById\" />
+    <Folder Include="Messages\Queries\GetByName\" />
+    <Folder Include="Orders\Commands\CreateOrder\" />
+    <Folder Include="Orders\Commands\DeleteOrder\" />
+    <Folder Include="Orders\Commands\UpdateOrder\" />
+    <Folder Include="Orders\Events\OrderDeleted\" />
+    <Folder Include="Orders\Events\OrderUpdated\" />
+    <Folder Include="Orders\Events\OrderCreated\" />
+    <Folder Include="Orders\Queries\GetAll\" />
+    <Folder Include="Orders\Queries\GetByOrderId\" />
+    <Folder Include="Orders\Queries\GetByUserId\" />
+    <Folder Include="Posts\Events\PostDeleted\" />
+    <Folder Include="Posts\Events\PostUpdated\" />
+    <Folder Include="Posts\Events\PostCreated\" />
+    <Folder Include="Search\" />
+    <Folder Include="Posts\Commands\CreatePost\" />
+    <Folder Include="Posts\Commands\DeletePost\" />
+    <Folder Include="Posts\Commands\UpdatePost\" />
+    <Folder Include="Posts\Queries\GetAll\" />
+    <Folder Include="Posts\Queries\GetByPostId\" />
+    <Folder Include="Posts\Queries\GetByUserId\" />
     <Folder Include="Products\Events\ProductDeleted\" />
     <Folder Include="Products\Events\ProductUpdated\" />
     <Folder Include="Products\Events\ProductCreated\" />

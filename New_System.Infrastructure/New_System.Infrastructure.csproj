@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Authentication\Settings\" />
-    <Folder Include="Emails\" />
+    <Folder Include="Messging\Settings\" />
   </ItemGroup>
 
 </Project>

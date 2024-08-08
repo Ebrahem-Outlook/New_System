@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using New_System.Domain.Products;
 
-namespace New_System.Infrastructure.Configurations;
+namespace New_System.Infrastructure.Configurations.Products;
 
 internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
