@@ -6,13 +6,10 @@ namespace New_System.Domain.Posts;
 
 public sealed class Post : AggregateRoot<PostId>
 {
-    private Post(string title, string contect, List<Like> likes, List<Comment> comments)
-        : base(PostId.Create())
+    private Post(string title, string contect) : base(PostId.Create())
     {  
         Title = title;
         Contect = contect;
-        Likes = likes;
-        Comments = comments;
         CreatedAt = DateTime.UtcNow;
     }
 
@@ -25,14 +22,34 @@ public sealed class Post : AggregateRoot<PostId>
     public DateTime CreatedAt { get; }
     public DateTime? UpdateAt { get; private set; }
 
-    public static Post Create(string title, string contect, List<Like> likes, List<Comment> comments)
+    public static Post Create(string title, string contect)
     {
-        Post post = new(title, contect, likes, comments);
+        Post post = new(title, contect);
 
         post.RaiseDomainEvent(new PostCreatedDomainEvent(post));
 
         return post;
     }
 
+    public void Update(string title, string contect)
+    {
+        Title = title;
+        Contect = contect;
 
+        RaiseDomainEvent(new PostUpdatedDomainEvent(this));
+    }
+
+    public void AddLike(Like like)
+    {
+        Likes.Add(like);
+
+        RaiseDomainEvent(new NewLikeDomainEvent(like));
+    }
+
+    public void AddComment(Comment comment)
+    {
+        Comments.Add(comment);
+
+        RaiseDomainEvent(new NewCommentDomainEvent(comment));
+    }
 }

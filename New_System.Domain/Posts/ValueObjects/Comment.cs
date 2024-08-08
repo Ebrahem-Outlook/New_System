@@ -4,18 +4,27 @@ namespace New_System.Domain.Posts.ValueObjects;
 
 public sealed class Comment : ValueObject
 {
-    public Comment(Guid id, Guid userId, string content)
+    private Comment(Guid userId, Guid postId, string content)
     {
-        Id = id;
+        Id = Guid.NewGuid();
         UserId = userId;
+        PostId = postId;
         Content = content;
         CreatedAt = DateTime.UtcNow;
     }
 
-    public Guid Id { get; private set; }
-    public Guid UserId { get; private set; }
-    public string Content { get; private set; }
-    public DateTime CreatedAt { get; private set; }
+    private Comment() { }
+
+    public Guid Id { get; }
+    public Guid UserId { get; }
+    public Guid PostId { get; }
+    public string Content { get; } = default!;
+    public DateTime CreatedAt { get; }
+
+    public static Comment Create(Guid userId, Guid postId, string content)
+    {
+        return new Comment(userId, postId, content);
+    }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
